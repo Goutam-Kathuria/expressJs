@@ -96,17 +96,17 @@ return res.status(200).json({message:"Cource Added "})
  })
  app.get('/allcourse', async(req,res)=>{
     try {
-    //     const {search,duration,category}=req.query;
-    //     let filters={}
-    //     if(search){
-    //     filters.title={$regex:search,$options:"i"}  // i is for ignore
-    //     }
-    //      if(duration){
-    //      filters.duration={$regex:duration,$options:"i"};
-    //  }
-    //  if(category){
-    //     filters.category={$regex:category,$options:"i"};
-    //     }
+        const {search,duration,category}=req.query;
+        let filters={}
+        if(search){
+        filters.title={$regex:search,$options:"i"}  // i is for ignore
+        }
+         if(duration){
+         filters.duration={$regex:duration,$options:"i"};
+     }
+     if(category){
+        filters.category={$regex:category,$options:"i"};
+        }
        const courses = await Courses.find(filters);
        res.json(courses);
     } catch (error) {
@@ -209,3 +209,14 @@ console.log(updateCourse);
 app.listen(5000,()=> console.log('server is running localhost:5000'));
 
 //http://Localhost:5000/api/ganja
+
+
+app.get('/alluser1', async(req,res)=>{
+    try {
+        const users=await User.find();
+        res.json(users);
+    } catch (error) {
+        console.error(error)
+        return res.status(500).json({message:"Server Error"})
+    }
+ })
