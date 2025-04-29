@@ -10,7 +10,7 @@ const transporter = noderMailer.createTransport({
    }
 })
 
-const sendMail = async(to,subject,text,html)=>{
+const sendMail = async (to,subject,text,html)=>{
     try {
         await transporter.sendMail({
             from:process.env.EMAIL_USER,

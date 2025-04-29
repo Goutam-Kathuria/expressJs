@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {verifyToken,roleChecker} = require('./middleware/authToken');
 const logger = require('./middleware/logger');
+const Product = require('./modals/cofee')
 const Courses = require('./modals/course');
 const errorHandler = require('./middleware/errorHandler');
 const upload = require('./middleware/multer');
@@ -205,13 +206,7 @@ console.log(updateCourse);
 
 
  })
-
-app.listen(5000,()=> console.log('server is running localhost:5000'));
-
-//http://Localhost:5000/api/ganja
-
-
-app.get('/alluser1', async(req,res)=>{
+ app.get('/alluser1', async(req,res)=>{
     try {
         const users=await User.find();
         res.json(users);
@@ -220,3 +215,23 @@ app.get('/alluser1', async(req,res)=>{
         return res.status(500).json({message:"Server Error"})
     }
  })
+ 
+app.post('/starbuck',upload.single('image'),async(req,res)=>{
+    try {
+        
+    const {name,type,calories,price}=req.body
+    const image = req.file.path
+    const newCofee = new Product({name,type,image,calories,price})
+    await newCofee.save()
+    return res.status(200).json({message:'Done'})
+} catch (error) {
+    console.error(error);
+    
+    return res.status(500).json({message:'Server Error'})       
+}
+})
+
+
+app.listen(5000,()=> console.log('server is running localhost:5000'));
+
+//http://Localhost:5000/api/ganja
