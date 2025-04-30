@@ -9,6 +9,7 @@ const {verifyToken,roleChecker} = require('./middleware/authToken');
 const logger = require('./middleware/logger');
 const Product = require('./modals/cofee')
 const Courses = require('./modals/course');
+const Cofee = require('./modals/cofee')
 const errorHandler = require('./middleware/errorHandler');
 const upload = require('./middleware/multer');
 require('dotenv').config();
@@ -218,7 +219,6 @@ console.log(updateCourse);
  
 app.post('/starbuck',upload.single('image'),async(req,res)=>{
     try {
-        
     const {name,type,calories,price}=req.body
     const image = req.file.path
     const newCofee = new Product({name,type,image,calories,price})
@@ -230,7 +230,19 @@ app.post('/starbuck',upload.single('image'),async(req,res)=>{
     return res.status(500).json({message:'Server Error'})       
 }
 })
-
+app.get('/cofee',async (req,res,next) => {
+    try {
+    const {type}=req.query
+    const filter = {}
+    if(type){
+        filter.type = {$regex:type,$options:"i"}
+    }
+    const cofee =await Cofee.find(filter)
+    res.json(cofee)
+} catch (error) {
+        next(error)
+}
+})
 
 app.listen(5000,()=> console.log('server is running localhost:5000'));
 

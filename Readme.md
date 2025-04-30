@@ -44,3 +44,13 @@ console.log(gk)
 CLOUD_NAME dwutyl2zg 
 API_KEY 941721885931794
 API-SECRET gKcdlugKwoNn4iPUgJVApD1t7Jo
+
+git commands for update = git add .
+git commit -m "any type of message"
+git push origin main or git push --set-upstream origin main
+
+
+git commands for new add 
+git init
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+Then follow the normal add, commit, push steps above.

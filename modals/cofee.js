@@ -16,4 +16,4 @@ cofeeSchema.pre('save', function (next) {
     next()
 })
 const Cofee = mongoose.model('Cofee', cofeeSchema)
-module.exports = mongoose.model('Cofee', cofeeSchema);
+module.exports = Cofee
